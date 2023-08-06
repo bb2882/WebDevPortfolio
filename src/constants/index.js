@@ -7,14 +7,12 @@ import {
 	typescript,
 	html,
 	css,
+	bootstrap,
+	sass,
 	reactjs,
-	redux,
-	tailwind,
 	nodejs,
-	mongodb,
 	git,
 	figma,
-	docker,
 	meta,
 	starbucks,
 	tesla,
@@ -22,7 +20,8 @@ import {
 	carrent,
 	jobit,
 	tripguide,
-	threejs,
+	nextjs,
+	webpack,
 } from "../assets";
 
 export const navLinks = [
@@ -69,6 +68,14 @@ const technologies = [
 		icon: css,
 	},
 	{
+		name: "Bootstrap",
+		icon: bootstrap,
+	},
+	{
+		name: "Sass",
+		icon: sass,
+	},
+	{
 		name: "JavaScript",
 		icon: javascript,
 	},
@@ -81,36 +88,24 @@ const technologies = [
 		icon: reactjs,
 	},
 	{
-		name: "Redux Toolkit",
-		icon: redux,
-	},
-	{
-		name: "Tailwind CSS",
-		icon: tailwind,
+		name: "Next JS",
+		icon: nextjs,
 	},
 	{
 		name: "Node JS",
 		icon: nodejs,
 	},
 	{
-		name: "MongoDB",
-		icon: mongodb,
-	},
-	{
-		name: "Three JS",
-		icon: threejs,
-	},
-	{
-		name: "git",
+		name: "Git",
 		icon: git,
 	},
 	{
-		name: "figma",
+		name: "Figma",
 		icon: figma,
 	},
 	{
-		name: "docker",
-		icon: docker,
+		name: "Webpack",
+		icon: webpack,
 	},
 ];
 
