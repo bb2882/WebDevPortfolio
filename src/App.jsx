@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, StarsCanvas } from './components'
+import { About, Contact, Experience, Hero, Navbar, Tech, Works, StarsCanvas } from './components'
 
 const App = () => {
+	useEffect(() => {
+		const handleUnload = () => {
+			window.scrollTo(0, 0);
+		};
+
+		window.addEventListener('beforeunload', handleUnload);
+
+		return () => {
+			window.removeEventListener('beforeunload', handleUnload);
+		};
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<div className='relative z-0 bg-primary'>
@@ -14,7 +26,6 @@ const App = () => {
 				<Experience />
 				<Tech />
 				<Works />
-				<Feedbacks />
 				<div className="relative z-0">
 					<Contact />
 					<StarsCanvas />

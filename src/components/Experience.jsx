@@ -3,9 +3,10 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import { motion } from 'framer-motion'
 import 'react-vertical-timeline-component/style.min.css'
 import { styles } from '../styles'
-import { experiences } from '../constants'
 import { SectionWrapper } from '../hoc'
 import { textVariant } from '../utils/motion'
+import experiencesQuery from '../gqlQueries/experiences';
+import { useQuery } from '@apollo/client';
 
 const ExperienceCard = ({ experience }) => {
 	return (
@@ -19,8 +20,8 @@ const ExperienceCard = ({ experience }) => {
 			icon={
 				<div className='flex justify-center items-center w-full h-full'>
 					<img
-						src={experience.icon}
-						alt={experience.company_name}
+						src={experience.icon.url}
+						alt={experience.title}
 						className='w-[60%] h-[60%] object-contain'
 					/>
 				</div>
@@ -45,6 +46,10 @@ const ExperienceCard = ({ experience }) => {
 }
 
 const Experience = () => {
+	const { loading, error, data } = useQuery(experiencesQuery)
+
+	if (error) throw error
+
 	return (
 		<>
 			<motion.div variants={textVariant()}>
@@ -54,9 +59,11 @@ const Experience = () => {
 
 			<div className="mt-20 flex flex-col">
 				<VerticalTimeline>
-					{experiences.map((experience, index) => (
-						<ExperienceCard key={index} experience={experience}/>
-					))}
+					{loading ? <p></p> : (
+						data.experiencesCollection.items.map((experience, index) => (
+							<ExperienceCard key={index} experience={experience} />
+						))
+					)}
 				</VerticalTimeline>
 			</div>
 		</>

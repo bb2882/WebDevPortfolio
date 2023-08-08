@@ -2,9 +2,10 @@ import React from 'react'
 import Tilt from 'react-parallax-tilt'
 import { motion } from 'framer-motion'
 import { styles } from '../styles'
-import { services } from '../constants'
 import { fadeIn, textVariant } from '../utils/motion'
 import { SectionWrapper } from '../hoc'
+import servicesQuery from '../gqlQueries/services';
+import { useQuery } from '@apollo/client';
 
 const ServiceCard = ({ index, title, icon }) => {
 	return (
@@ -21,7 +22,7 @@ const ServiceCard = ({ index, title, icon }) => {
 					}}
 					className='bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
 				>
-					<img src={icon} alt={title} className='w-16 h-16 object-contain' />
+					<img src={icon.url} alt={title} className='w-16 h-16 object-contain' />
 					<h3 className='text-white text-[20px] font-bold text-center'>{title}</h3>
 				</div>
 			</motion.div>
@@ -30,6 +31,10 @@ const ServiceCard = ({ index, title, icon }) => {
 }
 
 const About = () => {
+	const { loading, error, data } = useQuery(servicesQuery)
+
+	if (error) throw error
+
 	return (
 		<>
 			<motion.div variants={textVariant()}>
@@ -42,16 +47,18 @@ const About = () => {
 				className='mt-4 text-secondarey text-[17px] max-w-3xl leading-[30px]'
 			>
 				I'm a skilled software developer with experience in TypeScript and
-				JavaScript, and expertise in frameworks like React, Node.js, and
+				JavaScript, and expertise in frameworks like React, Node.js and
 				Next.js. I'm a quick learner and collaborate closely with clients to
-				create efficient, scalable, and user-friendly solutions that solve
+				create efficient, scalable and user-friendly solutions that solve
 				real-world problems. Let's work together to bring your ideas to life!
 			</motion.p>
 
 			<div className="mt-20 flex flex-wrap gap-10">
-				{services.map((service, index) => (
-					<ServiceCard key={service.title} index={index} {...service} />
-				))}
+				{loading ? <p></p> : (
+					data.servicesCollection.items.map((service, index) => (
+						<ServiceCard key={service.title} index={index} {...service} />
+					))
+				)}
 			</div>
 		</>
 	)
