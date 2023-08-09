@@ -6,6 +6,10 @@ import { EarthCanvas } from './canvas'
 import { SectionWrapper } from '../hoc'
 import { slideIn } from '../utils/motion'
 
+// L31RrwOH7JD9Ck-gS
+// template_m3b2whi
+// service_r0ymbhh
+
 const Contact = () => {
 	const formRef = useRef()
 	const [form, setForm] = useState({
@@ -15,9 +19,48 @@ const Contact = () => {
 	})
 	const [loading, setLoading] = useState(false)
 
-	const handleChange = (e) => {}
+	const handleChange = (e) => {
+		const { name, value } = e.target
 
-	const handleSubmit = (e) => {}
+		setForm({
+			...form,
+			[name]: value
+		})
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		setLoading(true)
+
+		emailjs.send(
+			import.meta.env.VITE_SERVICE_ID, 
+			import.meta.env.VITE_TEMPLATE_ID,
+			{
+				from_name: form.name,
+				to_name: 'Azat',
+				from_email: form.email,
+				to_email: import.meta.env.VITE_EMAIL,
+				message: form.message
+			},
+			import.meta.env.VITE_PUBLIC_KEY
+			)
+			.then(() => {
+				setLoading(false)
+				alert('Thank you. I will get back to you as soon as possible.')
+
+				setForm({
+					name: '',
+					email: '',
+					message: '',
+				})
+			}, (error) => {
+				setLoading(false)
+
+				console.log(error)
+
+				alert('Something went wrong')
+			})
+	}
 
 	return (
 		<div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-19 overflow-hidden">
@@ -30,6 +73,7 @@ const Contact = () => {
 
 				<form
 					ref={formRef}
+					onSubmit={handleSubmit}
 					className='mt-12 flex flex-col gap-8'
 				>
 
@@ -39,6 +83,7 @@ const Contact = () => {
 							type="text" 
 							name="name"
 							value={form.name}
+							required
 							onChange={handleChange}
 							placeholder="What's your name?"
 							className='bg-tertiary py-4 px-6
@@ -54,6 +99,7 @@ const Contact = () => {
 							type="email"
 							name="email"
 							value={form.email}
+							required
 							onChange={handleChange}
 							placeholder="What's your email?"
 							className='bg-tertiary py-4 px-6
@@ -69,6 +115,7 @@ const Contact = () => {
 							rows='7'
 							name="message"
 							value={form.message}
+							required
 							onChange={handleChange}
 							placeholder="What do you want to say?"
 							className='bg-tertiary py-4 px-6
