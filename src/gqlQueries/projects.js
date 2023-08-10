@@ -9,13 +9,14 @@ const projectsQuery = gql`
 				image {
 					url
 				}
-				link
+				githubLink
 				tagsCollection {
 					items {
 						name
 						color
 					}
 				}
+				deployLink
 			}
 		}
 	}

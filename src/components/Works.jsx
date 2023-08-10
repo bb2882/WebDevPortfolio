@@ -2,13 +2,13 @@ import React from "react";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
-import { github } from "../assets";
+import { github, website } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 import projectsQuery from '../gqlQueries/projects';
 import { useQuery } from '@apollo/client';
 
-const ProjectCard = ({index, name, description, tagsCollection, image, link}) => {
+const ProjectCard = ({index, name, description, tagsCollection, image, githubLink, deployLink}) => {
 	return (
 		<motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
 			<Tilt
@@ -28,11 +28,22 @@ const ProjectCard = ({index, name, description, tagsCollection, image, link}) =>
 
 					<div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
 						<div
-							onClick={() => window.open(link, "_blank")}
-							className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
+							onClick={() => window.open(githubLink, "_blank")}
+							className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer mr-[12px]'
 						>
 							<img
 								src={github}
+								alt='source code'
+								className='w-1/2 h-1/2 object-contain'
+							/>
+						</div>
+
+						<div
+							onClick={() => window.open(deployLink, "_blank")}
+							className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
+						>
+							<img
+								src={website}
 								alt='source code'
 								className='w-1/2 h-1/2 object-contain'
 							/>
@@ -96,4 +107,4 @@ const Works = () => {
 	);
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");

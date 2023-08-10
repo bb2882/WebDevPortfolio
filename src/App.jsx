@@ -24,7 +24,10 @@ const App = () => {
 				</div>
 				<About />
 				<Experience />
-				<Tech />
+
+				{
+					(window.innerWidth <= 450) ? <p></p> : <Tech />
+				}
 				<Works />
 				<div className="relative z-0">
 					<Contact />

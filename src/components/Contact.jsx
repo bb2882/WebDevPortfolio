@@ -5,10 +5,7 @@ import { styles } from '../styles'
 import { EarthCanvas } from './canvas'
 import { SectionWrapper } from '../hoc'
 import { slideIn } from '../utils/motion'
-
-// L31RrwOH7JD9Ck-gS
-// template_m3b2whi
-// service_r0ymbhh
+import { facebook, instagram, linkedin, telegram } from '../assets'
 
 const Contact = () => {
 	const formRef = useRef()
@@ -55,10 +52,8 @@ const Contact = () => {
 				})
 			}, (error) => {
 				setLoading(false)
-
-				console.log(error)
-
 				alert('Something went wrong')
+				throw(error)
 			})
 	}
 
@@ -68,7 +63,15 @@ const Contact = () => {
 				variants={slideIn('left', 'tween', 0.2, 1)}
 				className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
 			>
-				<p className={styles.sectionSubText}>Get in touch</p>
+				<div className='flex justify-between'>
+					<p className={styles.sectionSubText}>Get in touch</p>
+					<div className='flex justify-between w-[180px]'>
+						<a href="https://www.linkedin.com/in/azat-harutyunyan-831b1b218/" target="_blank"><img src={linkedin} alt="linkedin" className='w-[30px] h-[30px]' /></a>
+						<a href="https://t.me/piejk" target="_blank"><img src={telegram} alt="telegram" className='w-[30px] h-[30px]' /></a>
+						<a href="https://www.facebook.com/azat.harutyunyan.7545" target="_blank"><img src={facebook} alt="facebook" className='w-[30px] h-[30px]' /></a>
+						<a href="https://www.instagram.com/harutyunyan_29_" target="_blank"><img src={instagram} alt="instagram" className='w-[30px] h-[30px]' /></a>
+					</div>
+				</div>
 				<h3 className={styles.sectionHeadText}>Contact.</h3>
 
 				<form
